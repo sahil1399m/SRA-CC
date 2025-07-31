@@ -36,8 +36,8 @@ apply_theme(st.session_state["theme"])
 
 # --- Gemini API Key (Do Not Edit This Block) ---
 try:
-    # api_key = st.secrets["GOOGLE_API_KEY"]
-    genai.configure(api_key="AIzaSyD_EWTKuJb_pcxkQrrHfyKsWKc124PJ9Ys")
+    api_key = st.secrets["GOOGLE_API_KEY"]
+    genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception as e:
     st.error(f"Gemini API Key error: {e}")
