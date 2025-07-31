@@ -1,4 +1,5 @@
 streamlit
+streamlit-lottie
+requests
+random
 google-generativeai
-genai.configure(api_key="AIzaSyD_VwuOiXSi3k8ACj7lxvHN2h_wn14Wcg0")
-model = genai.GenerativeModel('gemini-1.5-flash')
