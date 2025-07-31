@@ -1,5 +1,4 @@
 streamlit
 streamlit-lottie
 requests
-random
 google-generativeai
