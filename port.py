@@ -11,7 +11,7 @@ st.set_page_config(page_title="Sahil Desai | Portfolio", layout="wide", page_ico
 if "theme" not in st.session_state:
     st.session_state["theme"] = "light"
 
-theme_toggle = st.toggle("🌙 Dark Mode", value=(st.session_state["theme"] == "dark"))
+theme_toggle = st.toggle("🌙 click here to chnage to Dark Mode", value=(st.session_state["theme"] == "dark"))
 st.session_state["theme"] = "dark" if theme_toggle else "light"
 
 # --- Apply Theme CSS ---
@@ -36,8 +36,8 @@ apply_theme(st.session_state["theme"])
 
 # --- Gemini API Key (Do Not Edit This Block) ---
 try:
-    api_key = st.secrets["GOOGLE_API_KEY"]
-    genai.configure(api_key=api_key)
+    # api_key = st.secrets["GOOGLE_API_KEY"]
+    genai.configure(api_key="AIzaSyD_EWTKuJb_pcxkQrrHfyKsWKc124PJ9Ys")
     model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception as e:
     st.error(f"Gemini API Key error: {e}")
@@ -258,86 +258,144 @@ with st.container():
     st.write("---")
     st.markdown("""
     <h2>🎲 Feeling Bored?</h2>
+    <h2>CHECK OUT THE GAMES CREATED USING THE CHATBOT</h2>
     <p style='font-size:17px;'>Choose a game and challenge your mind while you're here!</p>
     """, unsafe_allow_html=True)
 
+    import streamlit as st
+    import random
+    import time
+
+    # --- Layout ---
     col1, col2 = st.columns(2)
 
-    # --- Column 1: Tic Tac Toe ---
+    # --- Column 1: Math Challenge Game ---
     with col1:
-        st.markdown("<h3>❌ Tic-Tac-Toe ⭕</h3>", unsafe_allow_html=True)
-        if 'board' not in st.session_state:
-            st.session_state.board = ["" for _ in range(9)]
-            st.session_state.current_player = "X"
+        st.markdown("<h3>🧮 Math Challenge Game - SCORE FAST to earn MORE</h3>", unsafe_allow_html=True)
 
-        def check_winner(board):
-            wins = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
-            for i,j,k in wins:
-                if board[i] == board[j] == board[k] and board[i] != "":
-                    return board[i]
-            return None
+        # Initialize math game state
+        if "math_level" not in st.session_state:
+            st.session_state.math_level = 1
+            st.session_state.math_score = 0
+            st.session_state.math_answer = None
+            st.session_state.math_feedback = ""
+            st.session_state.math_question = ""
+            st.session_state.math_answered = False
 
-        def reset_game():
-            st.session_state.board = ["" for _ in range(9)]
-            st.session_state.current_player = "X"
 
-        winner = check_winner(st.session_state.board)
-        for i in range(3):
-            cols = st.columns(3)
-            for j in range(3):
-                idx = 3*i + j
-                if st.session_state.board[idx] == "" and winner is None:
-                    if cols[j].button(" ", key=idx):
-                        st.session_state.board[idx] = st.session_state.current_player
-                        st.session_state.current_player = "O" if st.session_state.current_player == "X" else "X"
+        def generate_math_question():
+            question_type = random.choice(["addition", "multiplication", "integration", "differentiation"])
+
+            if question_type == "addition":
+                a = random.randint(1, 10 * st.session_state.math_level)
+                b = random.randint(1, 10 * st.session_state.math_level)
+                st.session_state.math_answer = a + b
+                return f"{a} + {b}"
+
+            elif question_type == "multiplication":
+                a = random.randint(1, 5 * st.session_state.math_level)
+                b = random.randint(1, 5 * st.session_state.math_level)
+                st.session_state.math_answer = a * b
+                return f"{a} × {b}"
+
+            elif question_type == "integration":
+                a = random.randint(1, 5)
+                st.session_state.math_answer = int((a * (1 ** 2)) / 2)  # ∫a·x dx from 0 to 1
+                return f"∫ {a}x dx from 0 to 1"
+
+            elif question_type == "differentiation":
+                a = random.randint(2, 5)
+                st.session_state.math_answer = a * (a - 1)  # derivative of x^a at x = 1
+                return f"d/dx (x^{a}) at x = 1"
+
+
+        def reset_math_game():
+            st.session_state.math_level = 1
+            st.session_state.math_score = 0
+            st.session_state.math_feedback = ""
+            st.session_state.math_question = generate_math_question()
+            st.session_state.math_answered = False
+
+
+        # Show current stats
+        st.write(f"Level: {st.session_state.math_level} | Score: {st.session_state.math_score}")
+
+        # Generate first question
+        if st.session_state.math_question == "":
+            st.session_state.math_question = generate_math_question()
+
+        # Show question
+        st.markdown(f"### ❓ {st.session_state.math_question}")
+
+        # Math input form
+        with st.form(key="math_form"):
+            math_user_input = st.text_input("Your answer:", key="math_input")
+            math_submit = st.form_submit_button("Submit")
+
+        # Handle math submission
+        if math_submit and not st.session_state.math_answered:
+            try:
+                if int(math_user_input) == st.session_state.math_answer:
+                    st.session_state.math_feedback = "✅ Correct!"
+                    st.session_state.math_score += 10
+                    st.session_state.math_level += 1
                 else:
-                    cols[j].write(f"**{st.session_state.board[idx]}**")
+                    st.session_state.math_feedback = f"❌ Wrong! Correct answer was {st.session_state.math_answer}"
+                st.session_state.math_question = generate_math_question()
+                st.session_state.math_answered = True
+            except ValueError:
+                st.warning("Please enter a valid number.")
 
-        if winner:
-            st.success(f"🎉 Player {winner} wins!")
-        elif "" not in st.session_state.board:
-            st.info("It's a draw!")
+        if st.session_state.math_answered:
+            st.write(st.session_state.math_feedback)
+            if st.button("Next Math Question"):
+                st.session_state.math_feedback = ""
+                st.session_state.math_answered = False
+                st.rerun()
 
-        st.button("🔄 Restart Game", on_click=reset_game)
+        if st.button("🔁 Restart Math Game"):
+            reset_math_game()
+            st.rerun()
 
-    # --- Column 2: Simon Says ---
+    # --- Column 2: Simon Says Game ---
     with col2:
         st.markdown("<h3>🧠 Simon Says</h3>", unsafe_allow_html=True)
-        import random
-        import time
 
-        if 'sequence' not in st.session_state:
-            st.session_state.sequence = []
-            st.session_state.user_sequence = []
-            st.session_state.level = 1
+        if 'simon_sequence' not in st.session_state:
+            st.session_state.simon_sequence = []
+            st.session_state.simon_user_sequence = []
+            st.session_state.simon_level = 1
 
-        def next_round():
-            st.session_state.user_sequence = []
-            st.session_state.sequence.append(random.choice(["Red", "Green", "Blue", "Yellow"]))
+
+        def next_simon_round():
+            st.session_state.simon_user_sequence = []
+            st.session_state.simon_sequence.append(random.choice(["Red", "Green", "Blue", "Yellow"]))
+
 
         def reset_simon():
-            st.session_state.sequence = []
-            st.session_state.user_sequence = []
-            st.session_state.level = 1
+            st.session_state.simon_sequence = []
+            st.session_state.simon_user_sequence = []
+            st.session_state.simon_level = 1
 
-        st.markdown(f"<p>Level: <b>{st.session_state.level}</b></p>", unsafe_allow_html=True)
+
+        st.markdown(f"<p>Level: <b>{st.session_state.simon_level}</b></p>", unsafe_allow_html=True)
 
         if st.button("▶️ Start/Next Round"):
-            next_round()
+            next_simon_round()
 
         st.markdown("<p>Simon says: </p>", unsafe_allow_html=True)
-        for color in st.session_state.sequence:
+        for color in st.session_state.simon_sequence:
             st.write(f"🔹 {color}")
             time.sleep(0.5)
 
         st.markdown("<p>Repeat the sequence:</p>", unsafe_allow_html=True)
-        user_input = st.text_input("Enter colors separated by commas (e.g. Red,Green,Blue)")
+        simon_user_input = st.text_input("Enter colors separated by commas (e.g. Red,Green,Blue)", key="simon_input")
 
-        if user_input:
-            st.session_state.user_sequence = [x.strip().capitalize() for x in user_input.split(",")]
-            if st.session_state.user_sequence == st.session_state.sequence:
+        if simon_user_input:
+            st.session_state.simon_user_sequence = [x.strip().capitalize() for x in simon_user_input.split(",")]
+            if st.session_state.simon_user_sequence == st.session_state.simon_sequence:
                 st.success("Correct! Get ready for the next round.")
-                st.session_state.level += 1
+                st.session_state.simon_level += 1
             else:
                 st.error("Oops! That's incorrect.")
                 reset_simon()
