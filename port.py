@@ -63,43 +63,84 @@ lottie_footer = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_3
 # --- Hero Section ---
 with st.container():
     st.markdown("""
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
         <style>
-        .intro-text h1 {
+        .intro-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #1e1e2f, #2c2c3e);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin-top: 20px;
+            color: #ffffff;
             font-family: 'Poppins', sans-serif;
-            font-size: 52px;
+        }
+        .intro-text {
+            flex: 1;
+            padding-right: 30px;
+        }
+        .intro-text h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: #FF4B4B;
-            margin-bottom: 0px;
         }
         .intro-text h1 span {
-            color: white;
+            color: #ffffff;
         }
         .intro-text h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            margin-top: -10px;
+            font-size: 26px;
+            font-weight: 500;
             color: #cccccc;
+            margin-bottom: 15px;
         }
         .intro-text p {
-            font-family: 'Poppins', sans-serif;
             font-size: 18px;
-            color: #999999;
+            line-height: 1.6;
+        }
+        .highlight {
+            color: #00d1b2;
+            font-weight: 600;
+        }
+        .highlight-red {
+            color: #ff7676;
+            font-weight: 600;
+        }
+        .intro-animation {
+            flex: 1;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .intro-wrapper {
+                flex-direction: column;
+                padding: 30px 20px;
+            }
+            .intro-text h1 {
+                font-size: 36px;
+            }
+            .intro-text h3 {
+                font-size: 20px;
+            }
         }
         </style>
+        <div class='intro-wrapper'>
+            <div class='intro-text'>
+                <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
+                <h3>2nd Year BTech EXTC | VJTI Mumbai</h3>
+                <p>🚀 Exploring the intersection of <span class="highlight">Embedded Systems</span>, <span class="highlight">Data Science</span>, and <span class="highlight-red">AI</span>.</p>
+                <p>🔧 Currently working on projects using <span class="highlight">ESP32</span>, <span class="highlight-red">OpenCV</span>, and <span class="highlight">Streamlit</span> to build real-world tech solutions.</p>
+                <p>🎯 I believe in <span class="highlight-red">learning by building</span> and love sharing my journey with others. Let’s create something amazing together!</p>
+            </div>
+            <div class='intro-animation' id='hero-animation'></div>
+        </div>
     """, unsafe_allow_html=True)
 
-    col1, col2 = st.columns([1.5, 1])
-    with col1:
-        st.markdown("""
-        <div class='intro-text'>
-            <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
-            <h3>2nd Year BTech EXTC | VJTI Mumbai</h3>
-            <p>🚀 Exploring Embedded Systems, Data Science, and AI.</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col2:
-        if lottie_about:
-            st_lottie(lottie_about, height=350, key="hero")
+    if lottie_about:
+        st_lottie(lottie_about, height=350, key="hero")
+
 
 
 # --- About Me ---
@@ -152,16 +193,19 @@ with st.container():
         .project-box {
             font-family: 'Poppins', sans-serif;
             font-size: 17px;
-            color: #666666;
+            color: white;
             margin-bottom: 15px;
             padding: 15px;
-            background-color: #f8f9fa;
             border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .dark .project-box {
-            background-color: #2c2f35 !important;
-            color: #cccccc !important;
+        .box1 { background-color: #4CAF50; }   /* Green */
+        .box2 { background-color: #2196F3; }   /* Blue */
+        .box3 { background-color: #FF9800; }   /* Orange */
+        .box4 { background-color: #9C27B0; }   /* Purple */
+
+        .dark .box1, .dark .box2, .dark .box3, .dark .box4 {
+            filter: brightness(0.9);
         }
         </style>
     """, unsafe_allow_html=True)
@@ -171,22 +215,22 @@ with st.container():
     col1, col2 = st.columns([1.2, 1])
     with col1:
         st.markdown("""
-        <div class='project-box'>🤖 <b>Self-balancing Robot</b><br>
+        <div class='project-box box1'>🤖 <b>Self-balancing Robot</b><br>
         Built using ESP32 and MPU6050 for real-time motion balancing.</div>
 
-        <div class='project-box'>🚗 <b>Wi-Fi Controlled Car</b><br>
+        <div class='project-box box2'>🚗 <b>Wi-Fi Controlled Car</b><br>
         ESP32-based vehicle controlled via browser with live video feed.</div>
 
-        <div class='project-box'>📊 <b>Smart Distance Monitoring</b><br>
+        <div class='project-box box3'>📊 <b>Smart Distance Monitoring</b><br>
         Integrated OLED + Chart.js to display distance data live on web.</div>
 
-        <div class='project-box'>✋ <b>Handwriting Recognition for Kids</b><br>
+        <div class='project-box box4'>✋ <b>Handwriting Recognition for Kids</b><br>
         Detects alphabets using OpenCV and provides voice feedback.</div>
         """, unsafe_allow_html=True)
+
     with col2:
         if lottie_footer:
             st_lottie(lottie_footer, height=500, key="footer")
-
 
 # --- Gemini Chatbot Section ---
 with st.container():
@@ -196,57 +240,85 @@ with st.container():
         <style>
         .chatbot-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 30px;
-            color: #4B8BBE;
-            margin-bottom: 0.3em;
-        }
-        .chatbot-box {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .dark .chatbot-box {
-            background-color: #2c2f35 !important;
-            color: #e0e0e0 !important;
+            font-size: 32px;
+            color: #FF4B4B;
+            margin-bottom: 0.2em;
         }
         .chat-caption {
+            font-family: 'Poppins', sans-serif;
             font-size: 16px;
-            margin-bottom: 10px;
-            color: #777777;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .chatbot-box {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .chatbot-response {
+            background-color: #f4f4f4;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 5px solid #FF4B4B;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .dark .chatbot-box {
+            background-color: #1e1e24 !important;
+            color: #dddddd !important;
+        }
+        .dark .chatbot-response {
+            background-color: #2c2f35 !important;
+            color: #e0e0e0 !important;
+            border-left: 5px solid #4B8BBE;
+        }
+        .dark .chat-caption {
+            color: #aaaaaa !important;
+        }
+        input[type="text"] {
+            font-family: 'Poppins', sans-serif;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #cccccc;
+            width: 100%;
         }
         </style>
+
         <div class='chatbot-title'>💬 Ask Me Anything (Chatbot)</div>
-        <div class='chat-caption'>Ask about Sahil’s background, achievements, and journey.</div>
+        <div class='chat-caption'>Curious about Sahil’s journey, projects, or achievements? Just ask!</div>
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns([1, 1])
     with col1:
         st.markdown("<div class='chatbot-box'>", unsafe_allow_html=True)
         user_input = st.text_input("🔎 Type your question here:")
+
         if user_input and model:
             with st.spinner("🤖 Thinking..."):
                 prompt = f"""
-You are an AI assistant for Sahil Desai's portfolio. Only reveal personal background info if asked directly.
+    You are an AI assistant for Sahil Desai's portfolio. Only reveal personal background info if asked directly.
 
-PRIVATE INFO (DO NOT reveal unless specifically asked):
-- Was a JEE dropper in 2023
-- Scored ~98 percentile in JEE Mains (2023, 2024), not qualified JEE Advanced
-- Got 99.09 percentile in MHT-CET
-- Admitted to VJTI via Defense Quota in 2024
-- 8.22 CGPA in first year
-- Allotted D-Block hostel on merit
-- Had a girlfriend in 12th (keep name private)
+    PRIVATE INFO (DO NOT reveal unless specifically asked):
+    - Was a JEE dropper in 2023
+    - Scored ~98 percentile in JEE Mains (2023, 2024), not qualified JEE Advanced
+    - Got 99.09 percentile in MHT-CET
+    - Admitted to VJTI via Defense Quota in 2024
+    - 8.22 CGPA in first year
+    - Allotted D-Block hostel on merit
+    - Had a girlfriend in 12th (keep name private)
 
-User asked: {user_input}
-"""
+    User asked: {user_input}
+    """
                 try:
                     response = model.generate_content(prompt)
                     st.success(response.text)
                 except Exception as e:
                     st.error(f"❌ AI response failed: {e}")
+
         st.markdown("</div>", unsafe_allow_html=True)
 
     with col2:
@@ -257,150 +329,97 @@ User asked: {user_input}
 with st.container():
     st.write("---")
     st.markdown("""
-    <h2>🎲 Feeling Bored?</h2>
-    <h2>CHECK OUT THE GAMES CREATED USING THE CHATBOT</h2>
-    <p style='font-size:17px;'>Choose a game and challenge your mind while you're here!</p>
+    <h2>CHECK OUT THE GAME CREATED USING THE CHATBOT</h2>
+    <p style='font-size:17px;'>Test your brainpower with this evolving Math Challenge!</p>
     """, unsafe_allow_html=True)
 
-    import streamlit as st
     import random
-    import time
 
-    # --- Layout ---
-    col1, col2 = st.columns(2)
+    st.markdown("<h3>🧮 Math Challenge Game - SCORE FAST to earn MORE</h3>", unsafe_allow_html=True)
 
-    # --- Column 1: Math Challenge Game ---
-    with col1:
-        st.markdown("<h3>🧮 Math Challenge Game - SCORE FAST to earn MORE</h3>", unsafe_allow_html=True)
+    # Initialize math game state
+    if "math_level" not in st.session_state:
+        st.session_state.math_level = 1
+        st.session_state.math_score = 0
+        st.session_state.math_answer = None
+        st.session_state.math_feedback = ""
+        st.session_state.math_question = ""
+        st.session_state.math_answered = False
 
-        # Initialize math game state
-        if "math_level" not in st.session_state:
-            st.session_state.math_level = 1
-            st.session_state.math_score = 0
-            st.session_state.math_answer = None
-            st.session_state.math_feedback = ""
-            st.session_state.math_question = ""
-            st.session_state.math_answered = False
+    def generate_math_question():
+        question_type = random.choice(["addition", "multiplication", "integration", "differentiation"])
 
+        if question_type == "addition":
+            a = random.randint(1, 10 * st.session_state.math_level)
+            b = random.randint(1, 10 * st.session_state.math_level)
+            st.session_state.math_answer = a + b
+            return f"{a} + {b}"
 
-        def generate_math_question():
-            question_type = random.choice(["addition", "multiplication", "integration", "differentiation"])
+        elif question_type == "multiplication":
+            a = random.randint(1, 5 * st.session_state.math_level)
+            b = random.randint(1, 5 * st.session_state.math_level)
+            st.session_state.math_answer = a * b
+            return f"{a} × {b}"
 
-            if question_type == "addition":
-                a = random.randint(1, 10 * st.session_state.math_level)
-                b = random.randint(1, 10 * st.session_state.math_level)
-                st.session_state.math_answer = a + b
-                return f"{a} + {b}"
+        elif question_type == "integration":
+            a = random.randint(1, 5)
+            st.session_state.math_answer = int((a * (1 ** 2)) / 2)  # ∫a·x dx from 0 to 1
+            return f"∫ {a}x dx from 0 to 1"
 
-            elif question_type == "multiplication":
-                a = random.randint(1, 5 * st.session_state.math_level)
-                b = random.randint(1, 5 * st.session_state.math_level)
-                st.session_state.math_answer = a * b
-                return f"{a} × {b}"
+        elif question_type == "differentiation":
+            a = random.randint(2, 5)
+            st.session_state.math_answer = a * (1 ** (a - 1))  # derivative of x^a at x = 1
+            return f"d/dx (x^{a}) at x = 1"
 
-            elif question_type == "integration":
-                a = random.randint(1, 5)
-                st.session_state.math_answer = int((a * (1 ** 2)) / 2)  # ∫a·x dx from 0 to 1
-                return f"∫ {a}x dx from 0 to 1"
+    def reset_math_game():
+        st.session_state.math_level = 1
+        st.session_state.math_score = 0
+        st.session_state.math_feedback = ""
+        st.session_state.math_question = generate_math_question()
+        st.session_state.math_answered = False
 
-            elif question_type == "differentiation":
-                a = random.randint(2, 5)
-                st.session_state.math_answer = a * (a - 1)  # derivative of x^a at x = 1
-                return f"d/dx (x^{a}) at x = 1"
+    # Show current stats
+    st.write(f"Level: {st.session_state.math_level} | Score: {st.session_state.math_score}")
 
+    # Generate first question
+    if st.session_state.math_question == "":
+        st.session_state.math_question = generate_math_question()
 
-        def reset_math_game():
-            st.session_state.math_level = 1
-            st.session_state.math_score = 0
+    # Show question
+    st.markdown(f"### ❓ {st.session_state.math_question}")
+
+    # Math input form
+    with st.form(key="math_form"):
+        math_user_input = st.text_input("Your answer:", key="math_input")
+        math_submit = st.form_submit_button("Submit")
+
+    # Handle math submission
+    if math_submit and not st.session_state.math_answered:
+        try:
+            if int(math_user_input) == st.session_state.math_answer:
+                st.session_state.math_feedback = "✅ Correct!"
+                st.session_state.math_score += 10
+                st.session_state.math_level += 1
+            else:
+                st.session_state.math_feedback = f"❌ Wrong! Correct answer was {st.session_state.math_answer}"
+            st.session_state.math_answered = True
+        except ValueError:
+            st.warning("Please enter a valid number.")
+
+    if st.session_state.math_answered:
+        st.write(st.session_state.math_feedback)
+        if st.button("Next Math Question"):
             st.session_state.math_feedback = ""
             st.session_state.math_question = generate_math_question()
             st.session_state.math_answered = False
-
-
-        # Show current stats
-        st.write(f"Level: {st.session_state.math_level} | Score: {st.session_state.math_score}")
-
-        # Generate first question
-        if st.session_state.math_question == "":
-            st.session_state.math_question = generate_math_question()
-
-        # Show question
-        st.markdown(f"### ❓ {st.session_state.math_question}")
-
-        # Math input form
-        with st.form(key="math_form"):
-            math_user_input = st.text_input("Your answer:", key="math_input")
-            math_submit = st.form_submit_button("Submit")
-
-        # Handle math submission
-        if math_submit and not st.session_state.math_answered:
-            try:
-                if int(math_user_input) == st.session_state.math_answer:
-                    st.session_state.math_feedback = "✅ Correct!"
-                    st.session_state.math_score += 10
-                    st.session_state.math_level += 1
-                else:
-                    st.session_state.math_feedback = f"❌ Wrong! Correct answer was {st.session_state.math_answer}"
-                st.session_state.math_question = generate_math_question()
-                st.session_state.math_answered = True
-            except ValueError:
-                st.warning("Please enter a valid number.")
-
-        if st.session_state.math_answered:
-            st.write(st.session_state.math_feedback)
-            if st.button("Next Math Question"):
-                st.session_state.math_feedback = ""
-                st.session_state.math_answered = False
-                st.rerun()
-
-        if st.button("🔁 Restart Math Game"):
-            reset_math_game()
             st.rerun()
 
-    # --- Column 2: Simon Says Game ---
-    with col2:
-        st.markdown("<h3>🧠 Simon Says</h3>", unsafe_allow_html=True)
-
-        if 'simon_sequence' not in st.session_state:
-            st.session_state.simon_sequence = []
-            st.session_state.simon_user_sequence = []
-            st.session_state.simon_level = 1
+    if st.button("🔁 Restart Math Game"):
+        reset_math_game()
+        st.rerun()
 
 
-        def next_simon_round():
-            st.session_state.simon_user_sequence = []
-            st.session_state.simon_sequence.append(random.choice(["Red", "Green", "Blue", "Yellow"]))
 
-
-        def reset_simon():
-            st.session_state.simon_sequence = []
-            st.session_state.simon_user_sequence = []
-            st.session_state.simon_level = 1
-
-
-        st.markdown(f"<p>Level: <b>{st.session_state.simon_level}</b></p>", unsafe_allow_html=True)
-
-        if st.button("▶️ Start/Next Round"):
-            next_simon_round()
-
-        st.markdown("<p>Simon says: </p>", unsafe_allow_html=True)
-        for color in st.session_state.simon_sequence:
-            st.write(f"🔹 {color}")
-            time.sleep(0.5)
-
-        st.markdown("<p>Repeat the sequence:</p>", unsafe_allow_html=True)
-        simon_user_input = st.text_input("Enter colors separated by commas (e.g. Red,Green,Blue)", key="simon_input")
-
-        if simon_user_input:
-            st.session_state.simon_user_sequence = [x.strip().capitalize() for x in simon_user_input.split(",")]
-            if st.session_state.simon_user_sequence == st.session_state.simon_sequence:
-                st.success("Correct! Get ready for the next round.")
-                st.session_state.simon_level += 1
-            else:
-                st.error("Oops! That's incorrect.")
-                reset_simon()
-
-        st.button("🔄 Restart Simon Game", on_click=reset_simon)
 
 # --- Footer ---
 with st.container():
