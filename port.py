@@ -34,10 +34,12 @@ def apply_theme(theme):
 
 apply_theme(st.session_state["theme"])
 
-# --- Gemini API Key (Do Not Edit This Block) ---
+# API part
 try:
-    api_key = st.secrets["GOOGLE_API_KEY"]
+    # to protect my API link from others
+    api_key = st.secrets["GOOGLE_API_KEY"] 
     genai.configure(api_key=api_key)
+    # free version of gemini(which have its terms & conditions)
     model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception as e:
     st.error(f"Gemini API Key error: {e}")
@@ -428,3 +430,4 @@ with st.container():
     st.write("This portfolio is built with Python, Streamlit, and love for innovation.")
     if lottie_projects:
         st_lottie(lottie_projects, height=200, key="projects")
+
