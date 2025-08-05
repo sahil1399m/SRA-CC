@@ -351,103 +351,7 @@ with st.container():
         if lottie_chatbot:
             st_lottie(lottie_chatbot, height=280, key="chat")
     st.markdown("</div>", unsafe_allow_html=True)
-# --- Game Zone Section ---
-with st.container():
-    st.markdown("<div class='fade-section'>", unsafe_allow_html=True)
-    st.write("---")
-    st.markdown("""
-    <h2>CHECK OUT THE GAME CREATED USING THE CHATBOT</h2>
-    <p style='font-size:17px;'>Test your brainpower with this evolving Math Challenge!</p>
-    """, unsafe_allow_html=True)
-
-    import random
-
-    st.markdown("<h3>🧮 Math Challenge Game - SCORE FAST to earn MORE</h3>", unsafe_allow_html=True)
-
-    # Initialize math game state
-    if "math_level" not in st.session_state:
-        st.session_state.math_level = 1
-        st.session_state.math_score = 0
-        st.session_state.math_answer = None
-        st.session_state.math_feedback = ""
-        st.session_state.math_question = ""
-        st.session_state.math_answered = False
-
-    def generate_math_question():
-        question_type = random.choice(["addition", "multiplication", "integration", "differentiation"])
-
-        if question_type == "addition":
-            a = random.randint(1, 10 * st.session_state.math_level)
-            b = random.randint(1, 10 * st.session_state.math_level)
-            st.session_state.math_answer = a + b
-            return f"{a} + {b}"
-
-        elif question_type == "multiplication":
-            a = random.randint(1, 5 * st.session_state.math_level)
-            b = random.randint(1, 5 * st.session_state.math_level)
-            st.session_state.math_answer = a * b
-            return f"{a} × {b}"
-
-        elif question_type == "integration":
-            a = random.randint(1, 5)
-            st.session_state.math_answer = int((a * (1 ** 2)) / 2)  # ∫a·x dx from 0 to 1
-            return f"∫ {a}x dx from 0 to 1"
-
-        elif question_type == "differentiation":
-            a = random.randint(2, 5)
-            st.session_state.math_answer = a * (1 ** (a - 1))  # derivative of x^a at x = 1
-            return f"d/dx (x^{a}) at x = 1"
-
-    def reset_math_game():
-        st.session_state.math_level = 1
-        st.session_state.math_score = 0
-        st.session_state.math_feedback = ""
-        st.session_state.math_question = generate_math_question()
-        st.session_state.math_answered = False
-
-    # Show current stats
-    st.write(f"Level: {st.session_state.math_level} | Score: {st.session_state.math_score}")
-
-    # Generate first question
-    if st.session_state.math_question == "":
-        st.session_state.math_question = generate_math_question()
-
-    # Show question
-    st.markdown(f"### ❓ {st.session_state.math_question}")
-
-    # Math input form
-    with st.form(key="math_form"):
-        math_user_input = st.text_input("Your answer:", key="math_input")
-        math_submit = st.form_submit_button("Submit")
-
-    # Handle math submission
-    if math_submit and not st.session_state.math_answered:
-        try:
-            if int(math_user_input) == st.session_state.math_answer:
-                st.session_state.math_feedback = "✅ Correct!"
-                st.session_state.math_score += 10
-                st.session_state.math_level += 1
-            else:
-                st.session_state.math_feedback = f"❌ Wrong! Correct answer was {st.session_state.math_answer}"
-            st.session_state.math_answered = True
-        except ValueError:
-            st.warning("Please enter a valid number.")
-
-    if st.session_state.math_answered:
-        st.write(st.session_state.math_feedback)
-        if st.button("Next Math Question"):
-            st.session_state.math_feedback = ""
-            st.session_state.math_question = generate_math_question()
-            st.session_state.math_answered = False
-            st.rerun()
-
-    if st.button("🔁 Restart Math Game"):
-        reset_math_game()
-        st.rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
-
-
-
+    
 # --- Footer ---
 with st.container():
     st.markdown("<div class='fade-section'>", unsafe_allow_html=True)
@@ -457,3 +361,4 @@ with st.container():
     if lottie_projects:
         st_lottie(lottie_projects, height=200, key="projects")
     st.markdown("</div>", unsafe_allow_html=True)
+
