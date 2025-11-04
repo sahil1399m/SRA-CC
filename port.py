@@ -82,59 +82,105 @@ lottie_footer = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_3
 # --- Hero Section ---
 st.markdown("""
 <style>
-    .intro-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 40px;
-        margin-top: 40px;
-    }
-    .intro-text {
-        flex: 1;
-        color: white;
-        font-family: 'Poppins', sans-serif;
-    }
-    .intro-text h1 {
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-    .intro-text h1 span {
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .intro-text h3 {
-        font-size: 1.4rem;
-        color: #c5c5c5;
-        margin-bottom: 20px;
-    }
-    .intro-text p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: #dcdcdc;
-    }
-    .highlight {
-        color: #00b4d8;
-        font-weight: 600;
-    }
-    .highlight-red {
-        color: #ff4d6d;
-        font-weight: 600;
-    }
+/* HERO: container */
+.intro-wrapper{
+  display:flex;
+  gap:32px;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:28px;
+  width:100%;
+}
+
+/* TEXT */
+.intro-text{
+  flex:1;
+  color:var(--text-color, #e6eefc);
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 20px;
+}
+
+.intro-text h1{
+  font-size:2.6rem;
+  margin:0 0 8px 0;
+  font-weight:800;
+  letter-spacing:0.6px;
+  line-height:1.02;
+}
+
+/* gradient name */
+.intro-text h1 span{
+  background: linear-gradient(90deg,#6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display:inline-block;
+  padding:2px 6px;
+  transform: translateZ(0);
+}
+
+/* subtitle */
+.intro-text h3{
+  margin:0 0 18px 0;
+  color: rgba(230,230,230,0.85);
+  font-weight:600;
+}
+
+/* paragraph styling */
+.intro-text p{
+  margin:8px 0;
+  color: rgba(230,230,230,0.82);
+  font-size:1rem;
+  line-height:1.55;
+}
+
+/* highlights */
+.highlight { color:#00b4d8; font-weight:700; }
+.highlight-red { color:#ff4d6d; font-weight:700; }
+
+/* animation / placeholder block (replace with Lottie or image if needed) */
+.intro-animation{
+  width:320px;
+  height:220px;
+  border-radius:16px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(255,255,255,0.5);
+  font-weight:700;
+  font-size:0.95rem;
+  backdrop-filter: blur(6px);
+}
+
+/* small responsive adjustments */
+@media (max-width: 900px){
+  .intro-wrapper{flex-direction:column; gap:18px}
+  .intro-animation{width:100%; height:180px}
+  .intro-text h1{font-size:2rem}
+}
 </style>
-<div class='intro-wrapper'>
-    <div class='intro-text'>
-        <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
-        <h3>2nd Year BTech EXTC | VJTI Mumbai</h3>
-        <p>🚀 Passionate about building projects that fuse <span class="highlight">Embedded Systems</span>, <span class="highlight-red">AI</span>, and <span class="highlight">Machine Learning</span>.</p>
-        <p>💻 Currently diving deep into <span class="highlight">Data Science</span>, <span class="highlight-red">ML model building</span>, and <span class="highlight">DSA</span> — sharpening logic while crafting intelligent systems.</p>
-        <p>🧠 Working on real-world projects using <span class="highlight-red">OpenCV</span>, <span class="highlight">ESP32</span>, and <span class="highlight">Streamlit</span> — turning innovative ideas into tech that actually works!</p>
-        <p>🎯 I’m all about <span class="highlight-red">learning by building</span>, pushing creative boundaries, and creating tech that surprises people 🚀</p>
-    </div>
-    <div class='intro-animation' id='hero-animation'></div>
+
+<div class="intro-wrapper">
+  <div class="intro-text">
+    <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
+    <h3>2nd Year BTech EXTC | VJTI Mumbai</h3>
+
+    <p>🚀 I build full-stack projects that fuse <span class="highlight">Embedded Systems</span>, <span class="highlight-red">AI</span>, and <span class="highlight">Machine Learning</span>.</p>
+
+    <p>💻 Currently deep into <span class="highlight">Data Science</span>, training <span class="highlight-red">ML models</span>, and sharpening problem solving with <span class="highlight">DSA</span>.</p>
+
+    <p>🧰 Working on real-world systems using <span class="highlight-red">OpenCV</span>, <span class="highlight">ESP32</span>, and <span class="highlight">Streamlit</span> — shipping ideas into working prototypes.</p>
+
+    <p>🎯 I learn by building, so expect demos, notebooks, and neat hacks. Let’s build something wild 🚀</p>
+  </div>
+
+  <div class="intro-animation" id="hero-animation">
+    Interactive Demo
+  </div>
 </div>
 """, unsafe_allow_html=True)
+
 
     if lottie_about:
         st_lottie(lottie_about, height=350, key="hero")
