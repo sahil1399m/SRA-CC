@@ -80,72 +80,49 @@ lottie_chatbot = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_
 lottie_footer = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_3rwasyjy.json")   # Thank you
 
 # --- Hero Section ---
-with st.container():
-    st.markdown("<div class='fade-section'>", unsafe_allow_html=True)
-    st.markdown("""
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-        <style>
-        .intro-wrapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #1e1e2f, #2c2c3e);
-            padding: 50px 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            margin-top: 20px;
-            color: #ffffff;
-            font-family: 'Poppins', sans-serif;
-        }
-        .intro-text {
-            flex: 1;
-            padding-right: 30px;
-        }
-        .intro-text h1 {
-            font-size: 56px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #FF4B4B;
-        }
-        .intro-text h1 span {
-            color: #ffffff;
-        }
-        .intro-text h3 {
-            font-size: 26px;
-            font-weight: 500;
-            color: #cccccc;
-            margin-bottom: 15px;
-        }
-        .intro-text p {
-            font-size: 18px;
-            line-height: 1.6;
-        }
-        .highlight {
-            color: #00d1b2;
-            font-weight: 600;
-        }
-        .highlight-red {
-            color: #ff7676;
-            font-weight: 600;
-        }
-        .intro-animation {
-            flex: 1;
-            text-align: center;
-        }
-        @media (max-width: 768px) {
-            .intro-wrapper {
-                flex-direction: column;
-                padding: 30px 20px;
-            }
-            .intro-text h1 {
-                font-size: 36px;
-            }
-            .intro-text h3 {
-                font-size: 20px;
-            }
-        }
-        </style>
+st.markdown("""
+<style>
+    .intro-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        margin-top: 40px;
+    }
+    .intro-text {
+        flex: 1;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+    }
+    .intro-text h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    .intro-text h1 span {
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .intro-text h3 {
+        font-size: 1.4rem;
+        color: #c5c5c5;
+        margin-bottom: 20px;
+    }
+    .intro-text p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #dcdcdc;
+    }
+    .highlight {
+        color: #00b4d8;
+        font-weight: 600;
+    }
+    .highlight-red {
+        color: #ff4d6d;
+        font-weight: 600;
+    }
+</style>
 <div class='intro-wrapper'>
     <div class='intro-text'>
         <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
@@ -362,5 +339,6 @@ with st.container():
     if lottie_projects:
         st_lottie(lottie_projects, height=200, key="projects")
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 
