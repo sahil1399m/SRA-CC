@@ -5,17 +5,21 @@ import google.generativeai as genai
 import random
 
 # --- Page Config ---
-st.set_page_config(page_title="Sahil Desai | Portfolio", layout="wide", page_icon="💼")
+st.set_page_config(page_title="Sahil Desai | Portfolio",
+                   layout="wide", page_icon="💼")
 # --- Apply Theme CSS ---
 
 # --- Theme Toggle ---
 if "theme" not in st.session_state:
     st.session_state["theme"] = "light"
 
-theme_toggle = st.toggle("🌙(Dark Mode)", value=(st.session_state["theme"] == "dark"))
+theme_toggle = st.toggle("🌙(Dark Mode)", value=(
+    st.session_state["theme"] == "dark"))
 st.session_state["theme"] = "dark" if theme_toggle else "light"
 
 # --- Apply Theme CSS ---
+
+
 def apply_theme(theme):
     if theme == "dark":
         st.markdown("""
@@ -32,6 +36,7 @@ def apply_theme(theme):
                 h1, h2, h3, h4, h5, h6, p, li, ul { color: #000000 !important; }
             </style>
             """, unsafe_allow_html=True)
+
 
 apply_theme(st.session_state["theme"])
 
@@ -57,12 +62,14 @@ st.markdown("""
 try:
     api_key = st.secrets["GOOGLE_API_KEY"]
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-2.5-flash')
 except Exception as e:
     st.error(f"Gemini API Key error: {e}")
     model = None
 
 # --- Lottie Animation Loader ---
+
+
 def load_lottie_url(url):
     try:
         r = requests.get(url)
@@ -72,119 +79,53 @@ def load_lottie_url(url):
         return None
     return None
 
+
 # --- Lottie Animations ---
-lottie_hero = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_touohxv0.json")  # Rocket launch
-lottie_about = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json")
-lottie_projects = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_x1gjdldd.json")  # Projects
-lottie_chatbot = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_0yfsb3a1.json")  # Chatbot
-lottie_footer = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_3rwasyjy.json")   # Thank you
+lottie_hero = load_lottie_url(
+    "https://assets10.lottiefiles.com/packages/lf20_touohxv0.json")  # Rocket launch
+lottie_about = load_lottie_url(
+    "https://assets2.lottiefiles.com/packages/lf20_4kx2q32n.json")
+lottie_projects = load_lottie_url(
+    "https://assets2.lottiefiles.com/packages/lf20_x1gjdldd.json")  # Projects
+lottie_chatbot = load_lottie_url(
+    "https://assets2.lottiefiles.com/packages/lf20_0yfsb3a1.json")  # Chatbot
+lottie_footer = load_lottie_url(
+    "https://assets2.lottiefiles.com/packages/lf20_3rwasyjy.json")   # Thank you
+
+
+# --- Function to load Lottie animation ---
+
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+
+# Example Lottie animation (developer / person working)
+lottie_person = load_lottieurl(
+    "https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json")
 
 # --- Hero Section ---
-st.markdown("""
-<style>
-/* HERO: container */
-.intro-wrapper{
-  display:flex;
-  gap:32px;
-  align-items:center;
-  justify-content:space-between;
-  margin-top:28px;
-  width:100%;
-}
+col1, col2 = st.columns([2, 1])
 
-/* TEXT */
-.intro-text{
-  flex:1;
-  color:var(--text-color, #e6eefc);
-  font-family: 'Poppins', sans-serif;
-  padding: 10px 20px;
-}
+with col1:
+    st.markdown("""
+        <h1 style='font-size:2.8rem; font-family:Poppins;'>Hey, I'm <span style="background: linear-gradient(45deg, #6a11cb, #2575fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Sahil Desai 👋</span></h1>
+        <h3 style='color:#c5c5c5;'>2nd Year BTech EXTC | VJTI Mumbai</h3>
+        <p style='color:#dcdcdc;'>🚀 I’m passionate about <span style="color:#00b4d8;">Data Science</span>, <span style="color:#ff4d6d;">Machine Learning</span>, and <span style="color:#00b4d8;">DSA</span> — building smart systems that solve real-world problems.</p>
+        <p style='color:#dcdcdc;'>💻 Currently working on <span style="color:#ff4d6d;">ML model building</span>, <span style="color:#00b4d8;">data visualization</span>, and <span style="color:#00b4d8;">algorithmic thinking</span> to sharpen my skills.</p>
+        <p style='color:#dcdcdc;'>🧠 Exploring <span style="color:#00b4d8;">Competitive Programming</span> as a beginner — learning logic, problem-solving, and optimization step by step.</p>
+        <p style='color:#dcdcdc;'>🎯 Always <span style="color:#ff4d6d;">learning by building</span>, pushing limits, and creating intelligent solutions 🚀</p>
+    """, unsafe_allow_html=True)
 
-.intro-text h1{
-  font-size:2.6rem;
-  margin:0 0 8px 0;
-  font-weight:800;
-  letter-spacing:0.6px;
-  line-height:1.02;
-}
-
-/* gradient name */
-.intro-text h1 span{
-  background: linear-gradient(90deg,#6a11cb 0%, #2575fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display:inline-block;
-  padding:2px 6px;
-  transform: translateZ(0);
-}
-
-/* subtitle */
-.intro-text h3{
-  margin:0 0 18px 0;
-  color: rgba(230,230,230,0.85);
-  font-weight:600;
-}
-
-/* paragraph styling */
-.intro-text p{
-  margin:8px 0;
-  color: rgba(230,230,230,0.82);
-  font-size:1rem;
-  line-height:1.55;
-}
-
-/* highlights */
-.highlight { color:#00b4d8; font-weight:700; }
-.highlight-red { color:#ff4d6d; font-weight:700; }
-
-/* animation / placeholder block (replace with Lottie or image if needed) */
-.intro-animation{
-  width:320px;
-  height:220px;
-  border-radius:16px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:rgba(255,255,255,0.5);
-  font-weight:700;
-  font-size:0.95rem;
-  backdrop-filter: blur(6px);
-}
-
-/* small responsive adjustments */
-@media (max-width: 900px){
-  .intro-wrapper{flex-direction:column; gap:18px}
-  .intro-animation{width:100%; height:180px}
-  .intro-text h1{font-size:2rem}
-}
-</style>
-
-<div class="intro-wrapper">
-  <div class="intro-text">
-    <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
-    <h3>2nd Year BTech EXTC | VJTI Mumbai</h3>
-
-    <p>🚀 I build full-stack projects that fuse <span class="highlight">Embedded Systems</span>, <span class="highlight-red">AI</span>, and <span class="highlight">Machine Learning</span>.</p>
-
-    <p>💻 Currently deep into <span class="highlight">Data Science</span>, training <span class="highlight-red">ML models</span>, and sharpening problem solving with <span class="highlight">DSA</span>.</p>
-
-    <p>🧰 Working on real-world systems using <span class="highlight-red">OpenCV</span>, <span class="highlight">ESP32</span>, and <span class="highlight">Streamlit</span> — shipping ideas into working prototypes.</p>
-
-    <p>🎯 I learn by building, so expect demos, notebooks, and neat hacks. Let’s build something wild 🚀</p>
-  </div>
-
-  <div class="intro-animation" id="hero-animation">
-    Interactive Demo
-  </div>
-</div>
-""", unsafe_allow_html=True)
+with col2:
+    if lottie_person:
+        st_lottie(lottie_person, height=320, key="person")
 
 
 if lottie_about:
-    st_lottie(lottie_about, height=350, key="hero") # close fade-section div
-
+    st_lottie(lottie_about, height=350, key="hero")  # close fade-section div
 
 
 # --- About Me ---
@@ -212,11 +153,12 @@ with st.container():
     with col1:
         st.markdown("""
         <div class="about-section">
-            <h2>🧠 About Me</h2>
-            <p>I'm a tech enthusiast passionate about building real-world solutions with Embedded Systems and Python.</p>
-            <p>From robotics to OpenCV to data visualizations on the web, I love to blend creativity and code.</p>
-            <p>Currently learning DSA and Data Science to prepare for software internships.</p>
-        </div>
+    <h2>🧠 About Me</h2>
+    <p>I'm a curious tech enthusiast who enjoys spending hours building and experimenting with projects that combine logic and creativity. Whether it's tinkering with ESP32 boards, exploring AI models, or improving my problem-solving skills — I love learning by doing.</p>
+    <p>Offline, I’m a bit introverted and prefer quiet workspaces, but online I turn chatty — discussing ideas, tech, and memes alike 😄. I’m also a partial anime watcher (especially the thought-provoking ones) and enjoy discovering new tech tools and open-source projects.</p>
+    <p>My hobbies revolve around exploring emerging tech, brainstorming project ideas, and occasionally losing track of time while debugging or watching coding podcasts.</p>
+</div>
+
         """, unsafe_allow_html=True)
     with col2:
         if lottie_hero:
@@ -246,37 +188,34 @@ with st.container():
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .box1 { background-color: #4CAF50; }   /* Green */
-        .box2 { background-color: #2196F3; }   /* Blue */
-        .box3 { background-color: #FF9800; }   /* Orange */
-        .box4 { background-color: #9C27B0; }   /* Purple */
+        .box2 { background-color: #FF9800; }   /* Orange */
+        .box3 { background-color: #2196F3; }   /* Blue */
 
-        .dark .box1, .dark .box2, .dark .box3, .dark .box4 {
+        .dark .box1, .dark .box2, .dark .box3 {
             filter: brightness(0.9);
         }
         </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='projects-section'><h2>🛠️ Projects</h2></div>", unsafe_allow_html=True)
+    st.markdown("<div class='projects-section'><h2>🛠️ Projects</h2></div>",
+                unsafe_allow_html=True)
 
     col1, col2 = st.columns([1.2, 1])
     with col1:
         st.markdown("""
         <div class='project-box box1'>🤖 <b>Self-balancing Robot</b><br>
-        Built using ESP32 and MPU6050 for real-time motion balancing.</div>
+        Built using ESP32 and MPU6050 for real-time motion balancing and control.</div>
 
-        <div class='project-box box2'>🚗 <b>Wi-Fi Controlled Car</b><br>
-        ESP32-based vehicle controlled via browser with live video feed.</div>
+        <div class='project-box box2'>📊 <b>Smart Distance Monitoring System</b><br>
+        ESP32-powered IoT setup with OLED display and live web visualization using Chart.js.</div>
 
-        <div class='project-box box3'>📊 <b>Smart Distance Monitoring</b><br>
-        Integrated OLED + Chart.js to display distance data live on web.</div>
-
-        <div class='project-box box4'>✋ <b>Handwriting Recognition for Kids</b><br>
-        Detects alphabets using OpenCV and provides voice feedback.</div>
+        <div class='project-box box3'>🔍 <b>Fuzzy Name Search App</b><br>
+        Streamlit-based app using fuzzy string matching for intelligent name lookups and similarity ranking.</div>
         """, unsafe_allow_html=True)
 
     with col2:
         if lottie_footer:
-            st_lottie(lottie_footer, height=500, key="footer")
+            st_lottie(lottie_footer, height=400, key="footer")
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Gemini Chatbot Section ---
@@ -336,13 +275,13 @@ with st.container():
         }
         </style>
 
-        <div class='chatbot-title'>💬 Ask Me Anything (Chatbot)</div>
+        <div class='chatbot-title'>💬 Ask Me Anything About Sahil</div>
         <div class='chat-caption'>Curious about Sahil’s journey, projects, or achievements? Just ask!</div>
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns([1, 1])
     with col1:
-        st.markdown("<div class='chatbot-box'>", unsafe_allow_html=True)
+        # st.markdown("<div class='chatbot-box'>", unsafe_allow_html=True)
         user_input = st.text_input("🔎 Type your question here:")
 
         if user_input and model:
@@ -373,17 +312,14 @@ with st.container():
         if lottie_chatbot:
             st_lottie(lottie_chatbot, height=280, key="chat")
     st.markdown("</div>", unsafe_allow_html=True)
-    
+
 # --- Footer ---
 with st.container():
     st.markdown("<div class='fade-section'>", unsafe_allow_html=True)
     st.write("---")
     st.markdown("<h2>✨ Thanks for Visiting!</h2>", unsafe_allow_html=True)
-    st.write("This portfolio is built with Python, Streamlit, and love for innovation.")
+    st.write(
+        "This portfolio is built with Python, Streamlit, and love for innovation.")
     if lottie_projects:
         st_lottie(lottie_projects, height=200, key="projects")
     st.markdown("</div>", unsafe_allow_html=True)
-
-
-
-
