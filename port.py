@@ -12,7 +12,7 @@ st.set_page_config(page_title="Sahil Desai | Portfolio", layout="wide", page_ico
 if "theme" not in st.session_state:
     st.session_state["theme"] = "light"
 
-theme_toggle = st.toggle("🌙 click here to chnage to Dark Mode", value=(st.session_state["theme"] == "dark"))
+theme_toggle = st.toggle("🌙(Dark Mode)", value=(st.session_state["theme"] == "dark"))
 st.session_state["theme"] = "dark" if theme_toggle else "light"
 
 # --- Apply Theme CSS ---
@@ -146,17 +146,18 @@ with st.container():
             }
         }
         </style>
-        <div class='intro-wrapper'>
-            <div class='intro-text'>
-                <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
-                <h3>2nd Year BTech EXTC | VJTI Mumbai</h3>
-                <p>🚀 Exploring the intersection of <span class="highlight">Embedded Systems</span>, <span class="highlight">Data Science</span>, and <span class="highlight-red">AI</span>.</p>
-                <p>🔧 Currently working on projects using <span class="highlight">ESP32</span>, <span class="highlight-red">OpenCV</span>, and <span class="highlight">Streamlit</span> to build real-world tech solutions.</p>
-                <p>🎯 I believe in <span class="highlight-red">learning by building</span> and love sharing my journey with others. Let’s create something amazing together!</p>
-            </div>
-            <div class='intro-animation' id='hero-animation'></div>
-        </div>
-    """, unsafe_allow_html=True)
+<div class='intro-wrapper'>
+    <div class='intro-text'>
+        <h1>Hey, I'm <span>Sahil Desai 👋</span></h1>
+        <h3>2nd Year BTech EXTC | VJTI Mumbai</h3>
+        <p>🚀 Passionate about building projects that fuse <span class="highlight">Embedded Systems</span>, <span class="highlight-red">AI</span>, and <span class="highlight">Machine Learning</span>.</p>
+        <p>💻 Currently diving deep into <span class="highlight">Data Science</span>, <span class="highlight-red">ML model building</span>, and <span class="highlight">DSA</span> — sharpening logic while crafting intelligent systems.</p>
+        <p>🧠 Working on real-world projects using <span class="highlight-red">OpenCV</span>, <span class="highlight">ESP32</span>, and <span class="highlight">Streamlit</span> — turning innovative ideas into tech that actually works!</p>
+        <p>🎯 I’m all about <span class="highlight-red">learning by building</span>, pushing creative boundaries, and creating tech that surprises people 🚀</p>
+    </div>
+    <div class='intro-animation' id='hero-animation'></div>
+</div>
+""", unsafe_allow_html=True)
 
     if lottie_about:
         st_lottie(lottie_about, height=350, key="hero")
@@ -361,4 +362,5 @@ with st.container():
     if lottie_projects:
         st_lottie(lottie_projects, height=200, key="projects")
     st.markdown("</div>", unsafe_allow_html=True)
+
 
