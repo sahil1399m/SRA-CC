@@ -182,10 +182,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-    if lottie_about:
-        st_lottie(lottie_about, height=350, key="hero")
-
-    st.markdown("</div>", unsafe_allow_html=True)  # close fade-section div
+if lottie_about:
+    st_lottie(lottie_about, height=350, key="hero") # close fade-section div
 
 
 
@@ -385,6 +383,7 @@ with st.container():
     if lottie_projects:
         st_lottie(lottie_projects, height=200, key="projects")
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
